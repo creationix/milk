@@ -1,0 +1,7 @@
+= milk
+
+Description goes here.
+
+== Copyright
+
+Copyright (c) 2009 Tim Caswell. See LICENSE for details.
