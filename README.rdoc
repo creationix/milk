@@ -1,6 +1,6 @@
 = milk
 
-Description goes here.
+Milk is a super simple cms for small sites that want a no nonsense way to edit webpages.
 
 == Copyright
 
