@@ -1,0 +1,7 @@
+%select{:name=>form_field}
+  - images.each do |img|
+    %option{:value=>img[:url], :selected=>value==img[:url], :title=>"#{img[:size]} bytes"}&= img[:filename]
+%br
+Alt:
+%input{:name=>alt_form_field, :value=>alt_value}
+

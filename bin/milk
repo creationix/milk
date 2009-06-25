@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+
+if ARGV.length != 1
+  puts "\nMilk site generator\n"
+  puts "\nUsage:\n\tmilk [target project]\n\n"
+  exit 1
+end
+
+target_path = File.absolute_path(ARGV[0])
+if File.directory?(target_path)
+  puts "\nERROR: there already exists a folder #{target_path}\n"
+  exit 1
+end
+
+puts "\nCreating milk site at #{target_path}\n"
+FileUtils.mkdir_p(target_path, :verbose => true)
+MILK_ROOT = target_path
+require 'milk'
+FileUtils.cp_r(Milk::TEMPLATE_DIR+"/.", target_path, :verbose => true)
+puts "\nDone!\n\n"

@@ -1,0 +1,18 @@
+--- 
+buttons: 
+- !ruby/object:Button 
+  href: /Home
+  title: Home
+  description: Description of home page
+- !ruby/object:Button 
+  href: /News
+  title: News
+  description: Description of news page
+- !ruby/object:Button 
+  href: /Products
+  title: Products
+  description: Description of products page
+- !ruby/object:Button 
+  href: /About
+  title: About Us
+  description: Description of about page

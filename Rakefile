@@ -5,11 +5,15 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "milk"
-    gem.summary = %Q{TODO}
+    gem.summary = %Q{Milk is a rack based content management system built for ease of use and simplicity. Milk tastes great with and without cookies.}
     gem.email = "tim@creationix.com"
     gem.homepage = "http://github.com/creationix/milk"
     gem.authors = ["Tim Caswell"]
     gem.rubyforge_project = "milk"
+    gem.required_ruby_version = '>=1.9'
+    gem.add_dependency('rack', '>= 1.0.0')
+    gem.add_dependency('maruku', '>= 0.6.0')
+    gem.add_dependency('haml', '>= 2.0.9')
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 

@@ -1,0 +1,18 @@
+--- 
+# This file contains the emails, names and hashed passwords for 
+# all users of the site.
+# 
+# Hash is a simple md5 of the password for now, future versions of
+# Milk may use something more secure.
+#
+# To create the md5 hash in irb do the following:
+#
+#   >> require 'digest/md5'
+#   => true
+#   >> Digest::MD5.hexdigest("test")
+#   => "098f6bcd4621d373cade4e832627b4f6"
+#
+# Note the default login is admin@example.com/test
+admin@example.com: 
+  name: Sample Admin
+  hash: 098f6bcd4621d373cade4e832627b4f6

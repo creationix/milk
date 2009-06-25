@@ -1,0 +1,15 @@
+!!! xml
+!!! strict
+%html{:xmlns=>"http://www.w3.org/1999/xhtml", :lang=>"en"}
+  %head
+    %meta{:"http-equiv"=>"content-type", :content=>"application/xhtml+xml; charset=UTF-8"}
+    %link{:rel=>"shortcut icon", :type=>"image/x-icon", :href=>"/favicon.ico"}/
+    - if @keywords && @keywords.length > 0
+      %meta{:name=>"keywords", :content=>@keywords}
+    - if @description && @description.length > 0
+      %meta{:name=>"description", :content=>@description}
+    %link{:rel=>"stylesheet", :type=>"text/css", :media=>"screen", :href=>"/style/style.css"}/
+    %title&= (@title || @pagename) + " - " + Milk::SITE_NAME
+  %body
+    = yield
+

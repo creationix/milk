@@ -1,0 +1,14 @@
+--- !ruby/object:Milk::Page 
+components: 
+- !ruby/object:Head {}
+
+- !ruby/object:Body 
+  markdown: |-
+    # News
+    
+    Description of news page
+- !ruby/object:Foot {}
+
+title: News
+keywords: ""
+description: ""

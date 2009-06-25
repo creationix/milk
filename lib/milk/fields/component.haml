@@ -1,0 +1,8 @@
+%h3
+  %a{:href => "#"}&= name
+%div
+  %input{:type=>"hidden", :name=>"#{@prefix}:class", :value=>self.class.to_s}
+  -self.class.fields.each do |field|
+    .field
+      %h4= field.name
+      .field-content= field.render(self, "#{@prefix}:#{field.field}")

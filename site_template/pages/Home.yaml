@@ -1,0 +1,14 @@
+--- !ruby/object:Milk::Page 
+components: 
+- !ruby/object:Head {}
+
+- !ruby/object:Body 
+  markdown: |-
+    # Home
+    
+    Description of home page
+- !ruby/object:Foot {}
+
+title: Home
+keywords: keywords, that, are, relevent, to, search, engines
+description: This is a description of this site.

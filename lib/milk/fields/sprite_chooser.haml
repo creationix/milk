@@ -1,0 +1,6 @@
+.sprite-select
+  %input{:type=>"hidden", :name=>form_field, :value=>value}
+  - @sprites.each do |sprite|
+    %div{:class => "ui-state-default ui-corner-all sprite-option" + ((value == sprite[:name]) ? " ui-state-highlight" : "")}
+      %span{:class => sprite[:css_class], :title => sprite[:name]} 
+  %br.clear

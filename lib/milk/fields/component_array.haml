@@ -1,0 +1,3 @@
+.sub-fields
+  - value.each_with_index do |item, i|
+    = item.edit("#{@prefix}:#{i}")
