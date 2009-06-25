@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{milk}
+  s.name = %q{Milk}
   s.version = "0.0.9"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
@@ -44,7 +44,6 @@ Gem::Specification.new do |s|
      "lib/milk/haxe.rb",
      "lib/milk/page.rb",
      "lib/milk/tasks.rb",
-     "milk.gemspec",
      "site_template/Rakefile",
      "site_template/config.ru",
      "site_template/config/config.yaml",
@@ -104,7 +103,7 @@ Gem::Specification.new do |s|
      "test/test_helper.rb"
   ]
   s.has_rdoc = true
-  s.homepage = %q{http://github.com/creationix/Milk}
+  s.homepage = %q{http://github.com/creationix/milk}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.required_ruby_version = Gem::Requirement.new(">= 1.9")
