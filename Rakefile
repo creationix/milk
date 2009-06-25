@@ -7,7 +7,7 @@ begin
     gem.name = "milk"
     gem.summary = %Q{Milk is a rack based content management system built for ease of use and simplicity. Milk tastes great with and without cookies.}
     gem.email = "tim@creationix.com"
-    gem.homepage = "http://github.com/creationix/milk"
+    gem.homepage = "http://github.com/creationix/Milk"
     gem.authors = ["Tim Caswell"]
     gem.rubyforge_project = "milk"
     gem.required_ruby_version = '>=1.9'

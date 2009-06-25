@@ -104,7 +104,7 @@ Gem::Specification.new do |s|
      "test/test_helper.rb"
   ]
   s.has_rdoc = true
-  s.homepage = %q{http://github.com/creationix/milk}
+  s.homepage = %q{http://github.com/creationix/Milk}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.required_ruby_version = Gem::Requirement.new(">= 1.9")
