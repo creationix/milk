@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
     ".document",
      ".gitignore",
      "LICENSE",
+     "Milk.gemspec",
      "README.rdoc",
      "Rakefile",
      "VERSION",
