@@ -4,7 +4,7 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "Milk"
+    gem.name = "milk"
     gem.summary = %Q{Milk is a rack based content management system built for ease of use and simplicity. Milk tastes great with and without cookies.}
     gem.email = "tim@creationix.com"
     gem.homepage = "http://github.com/creationix/milk"
