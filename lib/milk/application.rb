@@ -47,8 +47,8 @@ module Milk
         when @req.post?
           if path == '/login'
             :login
-          elsif path == '/formmail'
-            :formmail
+          elsif path == '/form_submit'
+            :form_submit
           elsif path =~ PAGE_PATH_REGEX
             regex = PAGE_PATH_REGEX
             :preview
@@ -101,7 +101,34 @@ module Milk
       Digest::MD5.hexdigest("#{password}")
     end
     
-    def logout()
+    def send_email(from, from_alias, to, to_alias, subject, message)
+	    msg = <<END_OF_MESSAGE
+From: #{from_alias} <#{from}>
+To: #{to_alias} <#{to}>
+Subject: #{subject}
+
+#{message}
+END_OF_MESSAGE
+      require 'net/smtp'	
+	    Net::SMTP.start('localhost') do |smtp|
+		    smtp.send_message msg, from, to
+	    end
+    end
+
+    def form_submit
+      instr = eval(decode(@req.params['instructions']))
+      p = @req.params.reject { |k,v| k == 'instructions'}
+      print instr.inspect+"\n"
+      print instr[:sendto].inspect+"\n"
+      print instr[:sendto].split(' ').inspect+"\n"
+      instr[:sendto].split(' ').each do |email|
+        continue unless u = USERS[email]
+        send_email("milk@#{@req.host}", "Milk Server at #{@req.host}", email, u[:name], "Someone messaged you from #{@req.referer}", YAML.dump(p))
+      end
+      @resp.redirect(instr[:dest])
+    end
+    
+    def logout
       @resp.delete_cookie('auth', :path => "/")
       @resp.redirect(@req.params['dest'])
     end
@@ -112,7 +139,7 @@ module Milk
       @req.cookies['flash']
     end
     
-    def login()
+    def login
       email = @req.params['email']
       if email.length > 0
         user = USERS[email]
@@ -153,6 +180,7 @@ module Milk
     end
     
     def load_deps(list, target)
+      return list unless DEPENDENCY_TREE[target]
       DEPENDENCY_TREE[target].each do |more|
         if more.class == Symbol
           load_deps(list, more)
@@ -186,6 +214,7 @@ module Milk
           @resp.status = 404
           page = Milk::Page.find('NotFound')
           Milk::Application.join_tree(page, self)
+          @action = :view
           @resp.write page.view
         when :view
           Milk::Application.join_tree(@page, self)
@@ -213,8 +242,8 @@ module Milk
           login
         when :logout
           logout
-        when :formmail
-          formmail
+        when :form_submit
+          form_submit
         when :access_denied
           @resp.staus = 403
           @resp.write "Access Denied"

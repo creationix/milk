@@ -43,7 +43,6 @@ function jsonify(form)
     }
     root[part] = value;
   });
-  console.log(data);
   return $.toJSON(data);
 }
 
