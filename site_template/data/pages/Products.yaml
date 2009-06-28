@@ -1,0 +1,14 @@
+--- !ruby/object:Milk::Page 
+components: 
+- !ruby/object:Milk::Components::Head {}
+
+- !ruby/object:Milk::Components::Body 
+  markdown: |-
+    # Products
+    
+    Description of products page
+- !ruby/object:Milk::Components::Foot {}
+
+title: Products
+keywords: ""
+description: ""

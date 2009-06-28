@@ -10,7 +10,7 @@ begin
     gem.homepage = "http://github.com/creationix/milk"
     gem.authors = ["Tim Caswell"]
     gem.rubyforge_project = "milk"
-    gem.required_ruby_version = '>=1.9'
+    gem.required_ruby_version = '>=1.8'
     gem.add_dependency('rack', '>= 1.0.0')
     gem.add_dependency('maruku', '>= 0.6.0')
     gem.add_dependency('haml', '>= 2.0.9')

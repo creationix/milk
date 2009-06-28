@@ -33,28 +33,17 @@ module Milk
       @prefix = prefix
       
       name = self.class.to_s.rpartition('::').last.gsub(/([a-z])([A-Z])/) { "#{$1}_#{$2}" }.downcase
-      haml_file = "#{FIELDS_DIR}/#{name}.haml"
-      if File.file?(haml_file)
-        ::Haml::Engine.new(File.read(haml_file), :filename => haml_file).render(self)
-      else
-        "#{self.class} Not Implemented"
-      end
+      haml("fields/#{name}")
     end
-    
-  end
-  
-  # This module is a namespace for all the subclasses of Milk::Field
-  # Is sets up autoloading for the fields classes
-  module Fields
 
-    Dir.glob(Milk::FIELDS_DIR + "/*.rb").each do |c|
-      name = c.split('/').last.gsub(/(.*)\.rb/) { $1 }
-      class_name = name.gsub(/\/(.?)/) { "::" + $1.upcase }.gsub(/(^|_)(.)/) { $2.upcase }
-      path = c.gsub(/(.*)\.rb/) { $1 }
-      autoload class_name.to_sym, path
-    end
   
   end
-  
+
+  module Fields
+    base = Milk::LIB_DIR + "/fields/"
+    Dir.glob("#{base}*.rb").each do |path|
+      autoload path.sub(base, '').path_to_class.to_sym, path
+    end
+  end
 end
 

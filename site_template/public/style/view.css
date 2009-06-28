@@ -1,0 +1,10 @@
+#admin { color: #999; text-align: right; }
+#admin a, #admin a:visited, #admin a:active, #admin a:link { color: #08f; }
+
+#head { margin-top: 20px; margin-bottom: 20px; }
+#head li { list-style-type: none; margin: 0; }
+#head li a { color: #08f; text-decoration: none; border: 1px solid #999; text-align: center; font-weight: bold; background-color: #222; float: left; margin: 0 13px 0 0; padding: 8px 15px; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; }
+#head li a:hover { background-color: #8af; color: #000; }
+#head li a.active { background-color: #8fa; color: #000; }
+
+#foot { font-size: 90%; color: #888; }

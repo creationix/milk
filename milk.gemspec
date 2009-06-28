@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{milk}
-  s.version = "0.0.9"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tim Caswell"]
-  s.date = %q{2009-06-25}
+  s.date = %q{2009-06-28}
   s.default_executable = %q{milk}
   s.email = %q{tim@creationix.com}
   s.executables = ["milk"]
@@ -26,53 +26,11 @@ Gem::Specification.new do |s|
      "lib/milk/application.rb",
      "lib/milk/component.rb",
      "lib/milk/field.rb",
-     "lib/milk/fields/component.haml",
-     "lib/milk/fields/component_array.haml",
-     "lib/milk/fields/component_array.rb",
-     "lib/milk/fields/image_chooser.haml",
-     "lib/milk/fields/image_chooser.rb",
-     "lib/milk/fields/login.haml",
-     "lib/milk/fields/markdown_field.haml",
-     "lib/milk/fields/markdown_field.rb",
-     "lib/milk/fields/page_chooser.haml",
-     "lib/milk/fields/page_chooser.rb",
-     "lib/milk/fields/sprite_chooser.haml",
-     "lib/milk/fields/sprite_chooser.rb",
-     "lib/milk/fields/text_field.haml",
-     "lib/milk/fields/text_field.rb",
-     "lib/milk/fields/xhtml.haml",
-     "lib/milk/haxe.rb",
      "lib/milk/page.rb",
      "lib/milk/tasks.rb",
      "milk.gemspec",
      "site_template/Rakefile",
      "site_template/config.ru",
-     "site_template/config/config.yaml",
-     "site_template/config/foot.yaml",
-     "site_template/config/head.yaml",
-     "site_template/config/users.yaml",
-     "site_template/design/0-reset.sass",
-     "site_template/design/1-text.sass",
-     "site_template/design/960.sass",
-     "site_template/design/body.haml",
-     "site_template/design/body.rb",
-     "site_template/design/button.haml",
-     "site_template/design/button.rb",
-     "site_template/design/foot.haml",
-     "site_template/design/foot.rb",
-     "site_template/design/foot.sass",
-     "site_template/design/head.haml",
-     "site_template/design/head.rb",
-     "site_template/design/head.sass",
-     "site_template/design/page.haml",
-     "site_template/design/page.sass",
-     "site_template/design/sprites.sass",
-     "site_template/design/xhtml.haml",
-     "site_template/pages/About.yaml",
-     "site_template/pages/Home.yaml",
-     "site_template/pages/News.yaml",
-     "site_template/pages/NotFound.yaml",
-     "site_template/pages/Products.yaml",
      "site_template/public/cache/About/index.html",
      "site_template/public/cache/Home/index.html",
      "site_template/public/cache/News/index.html",
@@ -107,7 +65,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/creationix/milk}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.required_ruby_version = Gem::Requirement.new(">= 1.9")
+  s.required_ruby_version = Gem::Requirement.new(">= 1.8")
   s.rubyforge_project = %q{milk}
   s.rubygems_version = %q{1.3.1}
   s.summary = %q{Milk is a rack based content management system built for ease of use and simplicity. Milk tastes great with and without cookies.}

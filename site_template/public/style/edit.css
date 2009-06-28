@@ -1,0 +1,29 @@
+body, html { border: 0; margin: 0; padding: 0; }
+
+body.busy { cursor: busy; }
+
+div.component:hover { border: 10px solid #08f; }
+
+#admin-title { position: absolute; margin: 0; top: 5px; left: 10px; line-height: 1em; font-size: 20px; font-family: monaco,monospace; }
+
+#toolbar { position: absolute; left: 0; bottom: 0; right: 0; padding: 3px; }
+#toolbar .toolitem { font-size: 12px; cursor: pointer; line-height: 1em; padding: 2px 5px 2px 2px; }
+#toolbar .toolitem .ui-icon { float: left; line-height: 1em; }
+
+#frame { position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; }
+
+#left { font-size: 11px; position: absolute; top: 0px; left: 0px; width: 250px; bottom: 0px; }
+#left h4 { font-size: 14px; }
+#left h3 { font-size: 13px; }
+
+#divider { position: absolute; top: 0px; left: 250px; width: 5px; bottom: 0px; }
+
+#fields { position: absolute; top: 0px; bottom: 35px; overflow: auto; left: 0px; right: 0; }
+#fields .ui-accordion-content { padding: 10px; }
+#fields .ui-accordion-content h4 { margin: 0; }
+#fields .ui-accordion-content .field-content { margin-bottom: 10px; }
+#fields .ui-accordion-content .field-content input { width: 95%; padding: 2px; }
+#fields .ui-accordion-content .field-content textarea { width: 100%; min-height: 330px; }
+#fields .ui-accordion-content .field-content .sprite-select .sprite-option { padding: 4px; margin: 2px; float: left; cursor: pointer; }
+
+#preview { position: absolute; top: 0px; left: 255px; right: 0; width: auto; bottom: 0px; overflow: auto; }

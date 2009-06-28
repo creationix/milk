@@ -47,6 +47,8 @@ module Milk
         when @req.post?
           if path == '/login'
             :login
+          elsif path == '/formmail'
+            :formmail
           elsif path =~ PAGE_PATH_REGEX
             regex = PAGE_PATH_REGEX
             :preview
@@ -79,7 +81,7 @@ module Milk
       return action, page_name, page
     end
     
-    def obfuscate(value)
+    def encode(value)
       require 'base64'
       len = Milk::SECRET.length
       result = (0...value.length).collect { |i| value[i].ord ^ Milk::SECRET[i%len].ord }
@@ -113,12 +115,12 @@ module Milk
     def login()
       email = @req.params['email']
       if email.length > 0
-        user = users[email]
+        user = USERS[email]
         if user
-          expected = user["hash"]
+          expected = user[:hash]
           actual = hash(email, @req.params['password'])
           if actual == expected
-            @resp.set_cookie('auth', :path => "/", :value => obfuscate(email), :secure=>@require_ssl, :httponly=>true)
+            @resp.set_cookie('auth', :path => "/", :value => encode(email), :secure=>@require_ssl, :httponly=>true)
           else
             flash "Incorrect password for user #{email}"
           end
@@ -131,19 +133,35 @@ module Milk
       @resp.redirect(@req.params['dest'])
     end
     
-    def users
-      users_file = Milk::CONFIG_DIR+"/users.yaml"
-      YAML.load(open(users_file).read)
-    end
-    
     def load_user
       @user = nil
       if current = @req.cookies['auth']
         email = decode(current)
-        @user = users[email]
+        @user = USERS[email]
         @resp.delete_cookie('auth', :path => "/") unless @user
       end
     end
+    
+    def render_dependencies(deps=[])
+      deps << @action
+      list = []
+      deps.each do |target|
+        load_deps(list, target)
+      end
+      list.uniq!
+      haml("dependencies", :list => list)
+    end
+    
+    def load_deps(list, target)
+      DEPENDENCY_TREE[target].each do |more|
+        if more.class == Symbol
+          load_deps(list, more)
+        else
+          list << more
+        end
+      end
+    end
+    
     
     # Rack call interface
     def call(env)
@@ -152,7 +170,7 @@ module Milk
       load_user
       
       # Route the request
-      action, page_name, @page = route
+      @action, page_name, @page = route
       
       # Send proper mime types for browsers that claim to accept it
       @resp["Content-Type"] = 
@@ -163,7 +181,7 @@ module Milk
         "text/html"
       end
 
-      case action
+      case @action
         when :not_found
           @resp.status = 404
           page = Milk::Page.find('NotFound')
@@ -183,23 +201,26 @@ module Milk
           @resp.write @page.edit
         when :save
           Milk::Application.join_tree(@page, self)
-          @resp.write @page.save
+          yaml = @page.save
+          @page.save_to_cache if Milk::USE_CACHE
+          @resp.write yaml
         when :preview
           Milk::Application.join_tree(@page, self)
           @resp.write @page.preview
         when :login_form
-          filename = FIELDS_DIR + "/login.haml"
-          @resp.write(::Haml::Engine.new(File.read(filename), :filename => filename).render(self))
+          @resp.write(haml("login"))
         when :login
           login
         when :logout
           logout
+        when :formmail
+          formmail
         when :access_denied
           @resp.staus = 403
           @resp.write "Access Denied"
         else
           @resp.status = 500
-          @resp.write action.to_s
+          @resp.write @action.to_s
       end
       @resp.finish
     end    

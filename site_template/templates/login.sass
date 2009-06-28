@@ -1,0 +1,35 @@
+!width = 400
+!height = 160
+table, #shadow, .ui-widget-shadow
+  :width = !width + "px"
+  :height = !height + "px"
+table#login, #shadow
+  :font-size 15px
+  :position absolute
+  :top 50%
+  :left 50%
+  :margin
+    :top = (-!height/2)+"px"
+    :left = (-!width/2)+"px"
+table#login td, table#login th
+  :vertical-align middle
+#login
+  tr.ui-state-error
+    td
+      :padding 5px 10px
+    :font-size 12px
+    span
+      :float left
+      :margin-right 0.3em
+  .ui-widget-header
+    :line-height 2em
+    :height 2em
+  button
+    :font-size 12px
+    :cursor pointer
+    :line-height 1em
+    :padding 2px 5px 2px 2px
+    .ui-icon
+      :float left
+      :line-height 1em
+

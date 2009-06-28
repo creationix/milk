@@ -1,0 +1,37 @@
+!!! xml
+!!! 1.1
+%html{:xmlns =>"http://www.w3.org/1999/xhtml"}
+  %head
+    %title Please Login
+    = render_dependencies
+  %body
+    .ui-widget-overlay
+    %form{:action => "/login", :method=>"post"}
+      %input{:type=>"hidden", :name => "dest", :value => @req.path_info}
+      #shadow
+        .ui-widget-shadow
+      %table#login{:class => "ui-widget ui-widget-content ui-corner-all"}
+        %thead
+          %tr
+            %th{:colspan=>2, :class=>"ui-widget-header ui-corner-top"}
+              &= "Please Login to edit '#{@page.pagename}'"
+        - if f = flash
+          %tr.ui-state-error{:class=>"ui-corner-all"}
+            %td{:colspan=>2}
+              %span{:class => "ui-icon ui-icon-alert",:style=>"float:left"}
+              %strong Alert:
+              &= f
+        %tr
+          %th Email
+          %td
+            %input{:name => "email"}
+        %tr
+          %th Password
+          %td
+            %input{:type=>"password", :name => "password"}
+        %tr
+          %th 
+          %td 
+            %button{:type =>"submit", :title=>'Login to the backend to edit this page.'}
+              %span{:class=>'ui-icon ui-icon-unlocked'}
+              Login

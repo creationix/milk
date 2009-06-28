@@ -1,0 +1,14 @@
+!!! xml
+!!! strict
+%html{:xmlns=>"http://www.w3.org/1999/xhtml", :lang=>"en"}
+  %head
+    %meta{:"http-equiv"=>"content-type", :content=>"application/xhtml+xml; charset=UTF-8"}
+    - if @keywords && @keywords.length > 0
+      %meta{:name=>"keywords", :content=>@keywords}
+    - if @description && @description.length > 0
+      %meta{:name=>"description", :content=>@description}
+    = render_dependencies
+    %title&= (@title || @pagename) + " - Sample Site"
+  %body
+    = yield
+

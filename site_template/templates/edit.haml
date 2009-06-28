@@ -1,0 +1,38 @@
+!!! xml
+!!! 1.1
+%html{:xmlns =>"http://www.w3.org/1999/xhtml"}
+  %head
+    %title&= "Editing \"#{@pagename}\""
+    = render_dependencies
+  %body
+    #frame
+      #left
+        .ui-widget-overlay
+        %form#fields{:method => "post", :action => "/"+@pagename}
+          %h3
+            %a{:href => "#"} Page Settings
+          %div
+            %input{:type=>"hidden", :name=>"class", :value=>self.class.to_s}
+            -to_yaml_properties.each do |name|
+              - next if name == :@components
+              - fieldname = name.to_s.sub('@','')
+              .field
+                %h4= fieldname.capitalize + ":"
+                .field-content
+                  %input{:type=>"text", :name=>fieldname, :value=>instance_variable_get(name)}
+          -@components.each_with_index do |component, i|
+            = component.edit("components:#{i}")
+        #toolbar{:class=>'ui-widget ui-widget-header'}
+          %button#save_button.toolitem{:title=>'Save changes and go to live page.'}
+            %span{:class=>'ui-icon ui-icon-disk'}
+            Save
+          %button#cancel_button.toolitem{:title=>'Cancel changes and go to live page.'}
+            %span{:class=>'ui-icon ui-icon-cancel'}
+            Cancel
+          %button#logout_button.toolitem{:title=>'Cancel changes and logout and go to live page.'}
+            %span{:class=>'ui-icon ui-icon-locked'}
+            Logout
+      #preview
+        = preview
+      #divider.ui-widget-header
+

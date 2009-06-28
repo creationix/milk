@@ -1,0 +1,14 @@
+--- !ruby/object:Milk::Page 
+components: 
+- !ruby/object:Milk::Components::Head {}
+
+- !ruby/object:Milk::Components::Body 
+  markdown: |-
+    # 404 - Page not found
+    
+    The page you were looking for was not found
+- !ruby/object:Milk::Components::Foot {}
+
+title: 404 - Page not found
+keywords: ""
+description: ""

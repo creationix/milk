@@ -1,0 +1,8 @@
+- list.each do |resource|
+  - case resource.rpartition('.').last.to_sym
+    - when :js
+      %script{:src=>resource, :type=>"text/javascript"}
+    - when :css
+      %link{:href=>resource, :media=>"screen", :rel=>"stylesheet", :type=>"text/css"}/
+    - when :ico
+      %link{:href=>resource, :rel=>'shortcut icon', :type=>'image/x-icon'}

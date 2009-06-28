@@ -8,10 +8,10 @@ module Milk
     attr_accessor :parent
     @parent = nil
     
-    PATH_TO_NAME_REGEXP = Regexp.new("#{Milk::PAGES_DIR}\/(.*)\.yaml")
+    PATH_TO_NAME_REGEXP = Regexp.new("#{Milk::DATA_DIR}\/pages\/(.*)\.yaml")
   
     def self.each_page
-      Dir.glob(Milk::PAGES_DIR + "/**/*.yaml").each do |yaml_file|
+      Dir.glob(Milk::DATA_DIR + "/pages/**/*.yaml").each do |yaml_file|
         p = load_file(yaml_file)
         Milk::Application.join_tree(p, nil)
         yield p
@@ -27,29 +27,11 @@ module Milk
     end
     
     def self.find(pagename)
-      yaml_file = Milk::PAGES_DIR + "/" + pagename + ".yaml"
+      yaml_file = Milk::DATA_DIR + "/pages/" + pagename + ".yaml"
       raise PageNotFoundError unless File.readable? yaml_file
       load_file(yaml_file, pagename)
     end
 
-    def self.haml(filename, context, extras)
-      if block_given?
-        ::Haml::Engine.new(File.read(filename), :filename => filename).render(context, extras) do
-          yield
-        end
-      else
-        ::Haml::Engine.new(File.read(filename), :filename => filename).render(context, extras)
-      end
-    end
-    
-    def haml(filename, context=self, extras={})
-      if block_given?
-        Page.haml(filename, context, extras) { yield }
-      else
-        Page.haml(filename, context, extras)
-      end
-    end
-    
     def to_yaml_properties
       [:@components, :@title, :@keywords, :@description]
     end
@@ -60,7 +42,7 @@ module Milk
     
     def save
       save_settings
-      yaml_file = Milk::PAGES_DIR + "/" + @pagename + ".yaml"
+      yaml_file = Milk::DATA_DIR + "/pages/" + @pagename + ".yaml"
       data = YAML.dump(self)
       File.open(yaml_file, "w") do |file|
         file.write(data)
@@ -81,6 +63,18 @@ module Milk
       obj
     end
     
+    def render_dependencies
+      deps = []
+      @components.each do |component|
+        if component.respond_to? :requirements
+          component.requirements.each do |dep|
+            deps << dep
+          end
+        end
+      end
+      app.render_dependencies deps
+    end
+    
     def load_settings
       @components.each do |component|
         component.load_settings
@@ -94,11 +88,11 @@ module Milk
     end
 
     def edit
-      haml(FIELDS_DIR + "/xhtml.haml", self)
+      haml("edit")
     end
     
     def preview
-      haml(Milk::COMPONENTS_DIR + "/page.haml", self) do 
+      haml("view.page") do 
         (@components.collect do |component|
           component.view
         end).join("")
@@ -106,7 +100,7 @@ module Milk
     end
     
     def view
-      haml(Milk::COMPONENTS_DIR + "/xhtml.haml", self) do 
+      haml("view") do 
         preview
       end
     end

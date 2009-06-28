@@ -1,3 +1,8 @@
+# This allows for local gems to be used if they exist
+Dir.glob(File.absolute_path(File.dirname(__FILE__)) + "/vendor/*/lib").each do |path|
+  puts "Using local gem at #{path}"
+  $LOAD_PATH.unshift(path)
+end
 require 'rake'
 load 'milk/tasks.rb'
 

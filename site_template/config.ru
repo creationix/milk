@@ -1,6 +1,5 @@
-require 'milk'
+require 'bootstrap'
 
-# use Lock
 if %w{rackup thin}.member?($0.rpartition('/').last)
   puts "Running in development mode"
   use ContentLength
@@ -10,7 +9,6 @@ if %w{rackup thin}.member?($0.rpartition('/').last)
     Milk::Application.new
   ])
 else
-  # When using passenger, require secure cookies and don't bother with static files
   run Milk::Application.new(true)
 end
 

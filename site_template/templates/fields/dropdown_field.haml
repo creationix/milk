@@ -1,0 +1,3 @@
+%select{:class=>"ui-widget ui-widget-content ui-corner-all",:name=>form_field}
+  - @options.each_pair do |option, name|
+    %option{:value=>option, :selected=>(value.to_s == option.to_s)}&= name

@@ -1,3 +1,4 @@
+
 module Milk
   class Component
   
@@ -6,7 +7,6 @@ module Milk
     attr_accessor :parent
     @parent = nil
 
-    
     # Don't store global properties or backreferences to the parent
     def to_yaml_properties
       (if respond_to? :global_properties
@@ -30,6 +30,12 @@ module Milk
     
     def self.local_properties(*props)
     end
+    
+    def self.requires(*resources)
+      class_def :requirements do
+        resources
+      end
+    end
 
     def self.global_properties(*props)
       globals = props.collect{|name|"@#{name}".to_sym}
@@ -39,7 +45,7 @@ module Milk
     end
     
     def name
-      self.class.to_s
+      self.class.to_s.rpartition('::').last
     end
 
     # All Components start out with default of no fields    
@@ -76,14 +82,14 @@ module Milk
     end
     
     def self.method_missing(method, *args)
-      raise "Missing '#{method}' method" unless File.file? FIELDS_DIR+"/#{method}.rb"
+      raise "Missing '#{method}' method" unless File.file? LIB_DIR+"/fields/#{method}.rb"
       klass = eval("Fields::" + method.to_s.gsub(/(^|_)(.)/) { $2.upcase })
       add_field(klass, *args)
     end
     
     def save_settings
       return unless respond_to? :global_properties
-      yaml_file = Milk::CONFIG_DIR + "/#{system_name}.yaml"
+      yaml_file = Milk::DATA_DIR + "/global/#{system_name}.yaml"
       data = {}
       global_properties.each do |name|
         data[name.to_s.sub('@','')] = instance_variable_get(name)
@@ -95,11 +101,11 @@ module Milk
     end
     
     def system_name
-      self.class.to_s.gsub(/([a-z])([A-Z])/) { "#{$1}_#{$2}" }.downcase
+      self.class.to_s.class_to_require.rpartition('/').last
     end
     
     def load_settings
-      yaml_file = Milk::CONFIG_DIR + "/#{system_name}.yaml"
+      yaml_file = Milk::DATA_DIR + "/global/#{system_name}.yaml"
       if File.file? yaml_file
         YAML.load_file(yaml_file).each_pair do |key, value|
           instance_variable_set("@#{key}".to_sym, value)
@@ -107,36 +113,25 @@ module Milk
       end
     end
     
-    def haml(filename, context=self, extras={})
-      if block_given?
-        Page.haml(filename, context, extras) { yield }
-      else
-        Page.haml(filename, context, extras)
-      end
-    end
-
-    def partial(filename, vars, extras={})
-      obj = self.dup
-      vars.each do |key, value|
-        obj.instance_variable_set("@#{key}", value)
-      end
-      haml(filename, obj, extras)
-    end
-
 
     def edit(prefix)
       @prefix = prefix
-      haml_file = FIELDS_DIR + "/component.haml"
-      ::Haml::Engine.new(File.read(haml_file), :filename => haml_file).render(self)
+      haml("edit.component")
     end
     
     def view
-      haml_file = Milk::COMPONENTS_DIR + "/" + system_name + ".haml"
-      raise "Missing template \"" + haml_file + "\"" unless File.file? haml_file
-      ::Haml::Engine.new(File.read(haml_file), :filename => haml_file).render(self)
+      haml("components/#{system_name}")
     end
     
+    
   end
-end
 
+  module Components
+    base = Milk::LIB_DIR + "/components/"
+    Dir.glob("#{base}*.rb").each do |path|
+      autoload path.sub(base, '').path_to_class.to_sym, path
+    end
+  end
+
+end
 

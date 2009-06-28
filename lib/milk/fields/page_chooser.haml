@@ -1,3 +1,0 @@
-%select{:name=>form_field}
-  - pages.each do |page|
-    %option{:value=>page[:url], :selected=>value==page[:url], :title=>page[:file]}&= page[:name]

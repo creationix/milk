@@ -1,0 +1,18 @@
+--- 
+buttons: 
+- !ruby/object:Milk::Components::Button 
+  href: /Home
+  title: Home
+  description: Description of home page
+- !ruby/object:Milk::Components::Button 
+  href: /News
+  title: News
+  description: Description of news page
+- !ruby/object:Milk::Components::Button 
+  href: /Products
+  title: Products
+  description: Description of products page
+- !ruby/object:Milk::Components::Button 
+  href: /About
+  title: About Us
+  description: Description of about page

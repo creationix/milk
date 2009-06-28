@@ -1,0 +1,14 @@
+--- !ruby/object:Milk::Page 
+components: 
+- !ruby/object:Milk::Components::Head {}
+
+- !ruby/object:Milk::Components::Body 
+  markdown: |-
+    # About Us
+    
+    Description of about page
+- !ruby/object:Milk::Components::Foot {}
+
+title: About Us
+keywords: ""
+description: ""
